@@ -31,6 +31,13 @@ npm test                            # All tests
 npx playwright test --grep @smoke   # Only smoke tests
 ```
 
+## Allure Report
+
+```bash
+npm run allure:generate   # Generate report
+npm run allure:open       # Open in browser
+```
+
 ## Jenkins Setup
 
 1. `docker-compose up -d`
