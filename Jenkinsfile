@@ -5,6 +5,12 @@ pipeline {
         nodejs 'NodeJS'
     }
 
+    environment {
+        USER_EMAIL = credentials('AMAZON_EMAIL')
+        USER_PASSWORD = credentials('AMAZON_PASSWORD')
+        BASE_URL = 'https://www.amazon.com'
+    }
+
     stages {
         stage('Checkout') {
             steps {
