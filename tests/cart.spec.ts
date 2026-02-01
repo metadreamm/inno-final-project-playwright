@@ -1,17 +1,19 @@
 import { test, expect } from "@playwright/test";
 import { HomePage } from "../pages/HomePage";
 import { SearchResultsPage } from "../pages/SearchResultsPage";
-import { ProuctPage } from "../pages/ProductPage";
+import { ProductPage } from "../pages/ProductPage";
 import { CartPage } from "../pages/CartPage";
 import { logger } from "../utils/logger";
 
 test.describe("Cart tests", () => {
+  // Clear cart before each test to ensure clean state
   test.beforeEach(async ({ page }) => {
     const cartPage = new CartPage(page);
     await page.goto("/cart");
     await cartPage.clearCart();
   });
 
+  // Clean cart after each test
   test.afterEach(async ({ page }) => {
     const cartPage = new CartPage(page);
     await page.goto("/cart");
@@ -23,7 +25,7 @@ test.describe("Cart tests", () => {
 
     const homePage = new HomePage(page);
     const searchResultsPage = new SearchResultsPage(page);
-    const productPage = new ProuctPage(page);
+    const productPage = new ProductPage(page);
 
     await homePage.open();
     await homePage.searchProduct("123");
@@ -43,7 +45,7 @@ test.describe("Cart tests", () => {
 
     const homePage = new HomePage(page);
     const searchResultsPage = new SearchResultsPage(page);
-    const productPage = new ProuctPage(page);
+    const productPage = new ProductPage(page);
     const cartPage = new CartPage(page);
 
     await homePage.open();

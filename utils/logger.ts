@@ -1,5 +1,6 @@
 type LogLevel = "info" | "warn" | "error" | "debug";
 
+// Provides formatted console output with timestamps and log levels
 class Logger {
   private formatMessage(level: LogLevel, message: string): string {
     const timestamp = new Date().toISOString();

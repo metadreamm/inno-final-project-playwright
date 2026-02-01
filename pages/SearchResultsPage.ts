@@ -4,15 +4,10 @@ import { logger } from "../utils/logger";
 
 export class SearchResultsPage extends BasePage {
   private readonly searchResults: Locator;
-  private readonly firstProductLink: Locator;
 
   constructor(page: Page) {
     super(page);
     this.searchResults = page.locator('[data-component-type="s-search-result"]');
-    this.firstProductLink = page
-      .locator('[data-component-type="s-search-result"]')
-      .first()
-      .locator("h2 a.a-link-normal");
   }
 
   async getResultsCount(): Promise<number> {
@@ -29,6 +24,7 @@ export class SearchResultsPage extends BasePage {
   async clickFirstProduct(): Promise<void> {
     logger.info("Clicking on first product in search results");
     //await this.click(this.firstProductLink, "First product link");
+    // Click on product image, more reliable than title link
     const firstProductImage = this.page.locator('[data-component-type="s-search-result"] img.s-image').first();
     await firstProductImage.click();
   }

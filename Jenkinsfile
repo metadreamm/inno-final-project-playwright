@@ -6,6 +6,7 @@ pipeline {
     }
 
     environment {
+        // Credentials stored in Jenkins Credentials Manager
         USER_EMAIL = credentials('AMAZON_EMAIL')
         USER_PASSWORD = credentials('AMAZON_PASSWORD')
         BASE_URL = 'https://www.amazon.com'
@@ -34,6 +35,7 @@ pipeline {
 
     post {
         always {
+            // Generate Allure report from test results
             allure includeProperties: false,
                     jdk: '',
                     results: [[path: 'allure-results']]

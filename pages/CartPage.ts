@@ -5,14 +5,14 @@ import { logger } from "../utils/logger";
 export class CartPage extends BasePage {
   private readonly cartHeader: Locator;
   private readonly cartItems: Locator;
-  private readonly emptyCartMessage: Locator;
   private readonly deleteButton: Locator;
 
   constructor(page: Page) {
     super(page);
+    // Amazon may render cart header as h1 or h2 depending on page version
     this.cartHeader = page.locator('h1:has-text("Shopping Cart"), h2:has-text("Shopping Cart")');
+    // Handles different cart HTML structures - with/without Active Items container
     this.cartItems = page.locator('[data-name="Active Items"] .sc-list-item, .sc-list-item');
-    this.emptyCartMessage = page.locator("text=Your Amazon Cart is empty");
     this.deleteButton = page.locator('input[data-action="delete-active"]').first();
   }
 

@@ -1,8 +1,13 @@
 import { test, expect } from "@playwright/test";
 import { config } from "../config/config";
 
+// Path to save authenticated session state
 const authFile = "playwright/.auth/amazon-user.json";
 
+/**
+ * Authentication setup - runs once before all tests
+ * Saves session to avoid login in each test and bypass captcha
+ */
 test("authenticate", async ({ page }) => {
   await page.goto(config.baseUrl);
 
