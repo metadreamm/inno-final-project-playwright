@@ -4,6 +4,7 @@ import { SearchResultsPage } from "../pages/SearchResultsPage";
 import { ProductPage } from "../pages/ProductPage";
 import { CartPage } from "../pages/CartPage";
 import { logger } from "../utils/logger";
+import { addProductToCart } from "../utils/testHelpers";
 
 test.describe("Cart tests", () => {
   // Clear cart before each test to ensure clean state
@@ -23,15 +24,7 @@ test.describe("Cart tests", () => {
   test("1.3 Adding product to cart @smoke @cart", async ({ page }) => {
     logger.info("Test: Adding product to cart");
 
-    const homePage = new HomePage(page);
-    const searchResultsPage = new SearchResultsPage(page);
-    const productPage = new ProductPage(page);
-
-    await homePage.open();
-    await homePage.searchProduct("123");
-    await searchResultsPage.clickFirstProduct();
-
-    await productPage.addToCart();
+    const productPage = await addProductToCart(page);
 
     const isAdded = await productPage.isProductAddedToCart();
     expect(isAdded).toBeTruthy();
@@ -43,15 +36,8 @@ test.describe("Cart tests", () => {
   test("1.4 Added product is displayed in cart @smoke @cart", async ({ page }) => {
     logger.info("Test: Product displayed in cart");
 
-    const homePage = new HomePage(page);
-    const searchResultsPage = new SearchResultsPage(page);
-    const productPage = new ProductPage(page);
+    const productPage = await addProductToCart(page);
     const cartPage = new CartPage(page);
-
-    await homePage.open();
-    await homePage.searchProduct("123");
-    await searchResultsPage.clickFirstProduct();
-    await productPage.addToCart();
 
     await productPage.goToCart();
 
