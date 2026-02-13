@@ -1,5 +1,6 @@
 import { test, expect } from "@playwright/test";
 import { config } from "../config/config";
+import * as fs from "fs";
 
 // Path to save authenticated session state
 const authFile = "playwright/.auth/amazon-user.json";
@@ -9,6 +10,18 @@ const authFile = "playwright/.auth/amazon-user.json";
  * Saves session to avoid login in each test and bypass captcha
  */
 test("authenticate", async ({ page }) => {
+  // Skip if session already exists
+  if (fs.existsSync(authFile)) {
+    const stats = fs.statSync(authFile);
+    const hoursSinceModified = (Date.now() - stats.mtimeMs) / (1000 * 60 * 60);
+
+    // Reuse session if less than 24 hours old
+    if (hoursSinceModified < 24) {
+      console.log("Using existing session");
+      return;
+    }
+  }
+
   await page.goto(config.baseUrl);
 
   await page.getByRole("link", { name: "Account & Lists" }).hover();
