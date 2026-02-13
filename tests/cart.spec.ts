@@ -14,13 +14,6 @@ test.describe("Cart tests", () => {
     await cartPage.clearCart();
   });
 
-  // Clean cart after each test
-  test.afterEach(async ({ page }) => {
-    const cartPage = new CartPage(page);
-    await page.goto("/cart");
-    await cartPage.clearCart();
-  });
-
   test("1.3 Adding product to cart @smoke @cart", async ({ page }) => {
     logger.info("Test: Adding product to cart");
 
