@@ -18,8 +18,6 @@ export class CartPage extends BasePage {
 
   async isCartPageOpened(): Promise<boolean> {
     logger.info("Checking if Cart page is opened");
-    await this.page.waitForLoadState("domcontentloaded");
-    await this.page.waitForTimeout(1000);
     return await this.cartHeader.isVisible();
   }
 
@@ -37,7 +35,7 @@ export class CartPage extends BasePage {
     logger.info("Clearing cart");
     while (await this.deleteButton.isVisible()) {
       await this.deleteButton.click();
-      await this.page.waitForTimeout(1000);
+      await this.deleteButton.waitFor({ state: "hidden" });
     }
   }
 }
