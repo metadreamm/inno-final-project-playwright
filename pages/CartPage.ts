@@ -35,6 +35,7 @@ export class CartPage extends BasePage {
     logger.info("Clearing cart");
     while (await this.deleteButton.isVisible()) {
       await this.deleteButton.click();
+      // Wait for button to disappear before checking for next item
       await this.deleteButton.waitFor({ state: "hidden" });
     }
   }
