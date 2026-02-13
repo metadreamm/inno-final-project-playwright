@@ -18,6 +18,7 @@ export class CartPage extends BasePage {
 
   async isCartPageOpened(): Promise<boolean> {
     logger.info("Checking if Cart page is opened");
+    await this.page.waitForLoadState("domcontentloaded");
     return await this.cartHeader.isVisible();
   }
 
