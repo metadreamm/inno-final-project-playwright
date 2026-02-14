@@ -1,10 +1,6 @@
 pipeline {
     agent any
 
-    tools {
-        nodejs 'NodeJS'
-    }
-
     environment {
         // Credentials stored in Jenkins Credentials Manager
         USER_EMAIL = credentials('AMAZON_EMAIL')
@@ -19,16 +15,19 @@ pipeline {
             }
         }
 
-        stage('Install Dependencies') {
+        stage('Run Tests in Docker') {
             steps {
-                sh 'npm ci'
-                sh 'npx playwright install --with-deps chromium'
-            }
-        }
-
-        stage('Run Tests') {
-            steps {
-                sh 'npx playwright test'
+                sh '''
+                    docker run --rm \
+                        -v $(pwd):/app \
+                        -w /app \
+                        -e USER_EMAIL=$USER_EMAIL \
+                        -e USER_PASSWORD=$USER_PASSWORD \
+                        -e BASE_URL=$BASE_URL \
+                        -e CI=true \
+                        mcr.microsoft.com/playwright:v1.48.0-jammy \
+                        /bin/bash -c "npm ci && npx playwright test"
+                '''
             }
         }
     }
