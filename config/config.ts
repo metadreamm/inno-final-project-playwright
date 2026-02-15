@@ -1,6 +1,3 @@
-import dotenv from "dotenv";
-dotenv.config();
-
 /**
  * Application configuration
  * Values are loaded from environment variables (.env file or CI secrets)
