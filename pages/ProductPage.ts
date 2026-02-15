@@ -9,7 +9,7 @@ export class ProductPage extends BasePage {
 
   constructor(page: Page) {
     super(page);
-    this.addToCartButton = page.locator("#add-to-cart-button");
+    this.addToCartButton = page.getByRole("button", { name: "Add to cart" });
     this.cartIcon = page.locator("#nav-cart");
     this.cartCount = page.locator("#nav-cart-count");
   }

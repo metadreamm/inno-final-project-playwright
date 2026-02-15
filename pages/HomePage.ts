@@ -9,7 +9,7 @@ export class HomePage extends BasePage {
 
   constructor(page: Page) {
     super(page);
-    this.searchInput = page.locator("#twotabsearchtextbox");
+    this.searchInput = page.getByRole("searchbox");
     this.searchButton = page.locator("#nav-search-submit-button");
     this.helloUserLink = page.getByRole("link", { name: /Hello,/ });
   }
