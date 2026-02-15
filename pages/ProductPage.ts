@@ -22,7 +22,7 @@ export class ProductPage extends BasePage {
   async isProductAddedToCart(): Promise<boolean> {
     // Check cart counter instead of success message (more reliable)
     logger.info("Checking if product was added to cart");
-    await this.page.waitForTimeout(1000);
+    await this.cartCount.waitFor({ state: "visible" });
 
     const cartCount = await this.cartCount.innerText();
     return parseInt(cartCount) > 0;
